@@ -164,7 +164,7 @@ export default function TestimonialsPageClient({ testimonials, total }: Props) {
                   rows={5}
                   value={form.content}
                   onChange={(e) => setForm((p) => ({ ...p, content: e.target.value }))}
-                  placeholder="Opíšte vašu skúsenosť v Kate Barber Studio..."
+                  placeholder="Opíšte vašu skúsenosť v DentCare Clinic..."
                   required
                   minLength={20}
                 />

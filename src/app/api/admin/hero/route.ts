@@ -3,7 +3,7 @@ import { cookies } from 'next/headers';
 import { db } from '@/lib/db';
 import { verifyAdminToken, getAdminSecret, ADMIN_COOKIE } from '@/lib/adminAuth';
 
-const STORE_SLUG = process.env.STORE_SLUG ?? 'kate-barber';
+const STORE_SLUG = process.env.STORE_SLUG ?? 'dentcare';
 
 async function checkAdmin(): Promise<boolean> {
   const c = await cookies();
@@ -48,7 +48,7 @@ export async function PATCH(req: NextRequest) {
     where: { storeId: store.id },
     create: {
       storeId: store.id,
-      title: (data.title as string) ?? 'Kate Barber Studio',
+      title: (data.title as string) ?? 'DentCare Clinic',
       subtitle: (data.subtitle as string) ?? 'Prémiový barber studio v Trenčíne',
       ctaText: (data.ctaText as string) ?? 'Rezervovať termín',
       imageUrl: (data.imageUrl as string | null) ?? null,

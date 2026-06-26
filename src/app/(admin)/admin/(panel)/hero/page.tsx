@@ -11,7 +11,7 @@ interface HeroConfig {
 }
 
 const DEFAULTS: HeroConfig = {
-  title: 'Kate Barber Studio',
+  title: 'DentCare Clinic',
   subtitle: 'Prémiový barber studio v Trenčíne',
   ctaText: 'Rezervovať termín',
   imageUrl: null,
@@ -109,7 +109,7 @@ export default function HeroAdminPage() {
             <input
               value={form.title}
               onChange={(e) => setForm((p) => ({ ...p, title: e.target.value }))}
-              placeholder="Kate Barber Studio"
+              placeholder="DentCare Clinic"
             />
           </div>
           <div className="booking__field" style={{ gridColumn: '1 / -1' }}>

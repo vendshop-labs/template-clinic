@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 
-const STORE_SLUG = process.env.STORE_SLUG ?? 'kate-barber';
+const STORE_SLUG = process.env.STORE_SLUG ?? 'dentcare';
 
 export async function GET() {
   try {

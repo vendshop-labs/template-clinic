@@ -82,7 +82,7 @@ export default function HeroSection({ config }: HeroSectionProps) {
         <div className="hero__image-wrap">
           <Image
             src={imageSrc}
-            alt="Kate Barber Studio interior"
+            alt="DentCare Clinic interior"
             fill
             className="hero__image"
             priority

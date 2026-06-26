@@ -162,7 +162,7 @@ export default function ContactSection({
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-            title={`Mapa ${displayCity ?? 'Kate Barber Studio'}`}
+            title={`Mapa ${displayCity ?? 'DentCare Clinic'}`}
           />
         </ScrollReveal>
       </div>

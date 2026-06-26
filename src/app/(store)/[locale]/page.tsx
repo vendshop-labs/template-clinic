@@ -16,7 +16,7 @@ import WhatsAppButton from '@/components/ui/WhatsAppButton';
 
 export const revalidate = 60;
 
-const STORE_SLUG = process.env.STORE_SLUG ?? 'kate-barber';
+const STORE_SLUG = process.env.STORE_SLUG ?? 'dentcare';
 
 export default async function HomePage({
   params,

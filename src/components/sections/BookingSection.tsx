@@ -113,7 +113,7 @@ export default function BookingSection() {
       setBookedSlots((prev) => [...prev, selectedTime]);
 
       const lines = [
-        `📅 *Rezervácia — Kate Barber Studio*`,
+        `📅 *Rezervácia — DentCare Clinic*`,
         `━━━━━━━━━━━━━━━━━━`,
         `👤 ${name}  📞 ${phone}`,
         service ? `✂️ ${service}` : '',

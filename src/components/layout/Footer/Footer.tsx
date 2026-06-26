@@ -87,7 +87,7 @@ export default function Footer({ locale, legalEnabled }: FooterProps) {
 
       {/* Bottom bar */}
       <div className="footer__bottom">
-        <p>© {currentYear} Kate Barber Studio. Všetky práva vyhradené.</p>
+        <p>© {currentYear} DentCare Clinic. Všetky práva vyhradené.</p>
         <p className="footer__bottom-links">
           <a href="#">Ochrana súkromia</a>
           <span>·</span>

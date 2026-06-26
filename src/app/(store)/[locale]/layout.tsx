@@ -110,7 +110,7 @@ export default async function LocaleLayout({
   const theme = process.env.NEXT_PUBLIC_THEME ?? 'dark';
   const cssVars = themeToCssVars(theme === 'dark' ? DARK_THEME : config.theme);
 
-  const storeSlug = process.env.STORE_SLUG ?? 'kate-barber';
+  const storeSlug = process.env.STORE_SLUG ?? 'dentcare';
   const store = locale === 'de'
     ? await db.store.findUnique({ where: { slug: storeSlug } })
     : null;

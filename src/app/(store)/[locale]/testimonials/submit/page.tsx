@@ -64,7 +64,7 @@ export default function TestimonialSubmitPage() {
           Zanechajte recenziu
         </h1>
         <p style={{ color: 'var(--color-text-muted)', marginBottom: '2rem', fontSize: '0.9rem' }}>
-          Podeľte sa o vašu skúsenosť s Kate Barber Studio
+          Podeľte sa o vašu skúsenosť s DentCare Clinic
         </p>
 
         {!authChecked ? (
@@ -81,7 +81,7 @@ export default function TestimonialSubmitPage() {
             <p>
               Recenziu môžu zanechať iba registrovaní klienti.
               <br />
-              Overíme, že ste skutočný klient Kate Barber Studio.
+              Overíme, že ste skutočný klient DentCare Clinic.
             </p>
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}>
               <Link href="/sk/login" className="btn-primary">Prihlásiť sa</Link>
@@ -139,7 +139,7 @@ export default function TestimonialSubmitPage() {
                   rows={5}
                   value={form.content}
                   onChange={(e) => setForm((p) => ({ ...p, content: e.target.value }))}
-                  placeholder="Opíšte vašu skúsenosť v Kate Barber Studio... (min. 20 znakov)"
+                  placeholder="Opíšte vašu skúsenosť v DentCare Clinic... (min. 20 znakov)"
                   required
                   minLength={20}
                 />

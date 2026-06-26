@@ -9,7 +9,7 @@ export default function AboutSection() {
           <div className="about__image-wrap">
             <Image
               src="/about-barbershop.webp"
-              alt="Kate Barber Studio interiér"
+              alt="DentCare Clinic interiér"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               className="about__image"
@@ -26,8 +26,8 @@ export default function AboutSection() {
               moderný štýl
             </h3>
             <p className="about__text">
-              Kate Barber vznikol v roku 2018 z lásky k tradičnému holičstvu. Náš zakladateľ{' '}
-              <strong>Marco Kate Barber</strong> priniesol do Trenčína to najlepšie z talianskej
+              DentCare vznikol v roku 2018 z lásky k tradičnému holičstvu. Náš zakladateľ{' '}
+              <strong>Marco DentCare</strong> priniesol do Trenčína to najlepšie z talianskej
               barberskej tradície.
             </p>
             <p className="about__text">

@@ -45,7 +45,7 @@ export const GALLERY_IMAGES: GalleryImageItem[] = [
   { src: '/gallery/gallery-2-haircut.webp', alt: 'Presný strih' },
   { src: '/gallery/gallery-3-beard.webp',   alt: 'Briadkový styling' },
   { src: '/gallery/gallery-4-result.webp',  alt: 'Výsledok - perfektný strih' },
-  { src: '/gallery/gallery-5-studio.webp',  alt: 'Kate Barber Studio interiér' },
+  { src: '/gallery/gallery-5-studio.webp',  alt: 'DentCare Clinic interiér' },
 ];
 
 export const BUSINESS_HOURS: HoursRow[] = [

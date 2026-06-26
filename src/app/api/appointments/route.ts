@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
 import { db } from '@/lib/db';
 
-const STORE_SLUG = process.env.STORE_SLUG ?? 'kate-barber';
+const STORE_SLUG = process.env.STORE_SLUG ?? 'dentcare';
 
 // ─── GET ───────────────────────────────────────────────────────────────────
 // ?date=2026-06-22&status=PENDING → { appointments: [] }
