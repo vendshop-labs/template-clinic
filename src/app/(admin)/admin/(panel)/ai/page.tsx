@@ -26,24 +26,24 @@ interface KnowledgeStatus {
 
 interface PriorityItem { id: string; label: string; enabled: boolean }
 const DEFAULT_PRIORITIES: PriorityItem[] = [
-  { id: 'service', label: 'Služby a ceny',      enabled: true },
-  { id: 'master',  label: 'Majstri a tím',       enabled: true },
-  { id: 'review',  label: 'Recenzie zákazníkov', enabled: true },
-  { id: 'hours',   label: 'Pracovné hodiny',      enabled: true },
-  { id: 'about',   label: 'Kontakt a adresa',     enabled: true },
+  { id: 'service', label: 'Services & prices',  enabled: true },
+  { id: 'master',  label: 'Doctors & team',      enabled: true },
+  { id: 'review',  label: 'Customer reviews',    enabled: true },
+  { id: 'hours',   label: 'Working hours',        enabled: true },
+  { id: 'about',   label: 'Contact & address',    enabled: true },
 ];
 
 const PRIORITIES_KEY = 'ai_priorities';
 const CHAT_BG_KEY    = 'ai_chat_bg';
-const CHAT_BG_PRESETS = ['#0d0d0d', '#0a0a0a', '#111827', '#1a0a00', '#0a0a1a'];
+const CHAT_BG_PRESETS = ['#f1f5f9', '#e0f2fe', '#f8fafc', '#f0fdf4', '#faf5ff'];
 
 const SUGGESTIONS = [
-  'Dnešné rezervácie',
-  'Najlepší majster',
-  'Priemerný rating',
-  'Aké máme služby?',
-  'Pracovné hodiny',
-  'Kontakt a adresa',
+  "Today's reservations",
+  'Top doctor',
+  'Average rating',
+  'What services do we offer?',
+  'Working hours',
+  'Contact & address',
 ];
 
 // ─── Icons ─────────────────────────────────────────────────────────────────
@@ -87,8 +87,8 @@ export default function AdminAiPage() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef    = useRef<HTMLTextAreaElement>(null);
 
-  // Chat background (from localStorage, default #0d0d0d)
-  const [chatBg, setChatBg] = useState('#0d0d0d');
+  // Chat background (from localStorage, default light)
+  const [chatBg, setChatBg] = useState('#f1f5f9');
   useEffect(() => {
     const saved = typeof window !== 'undefined' ? localStorage.getItem(CHAT_BG_KEY) : null;
     if (saved) setChatBg(saved);
@@ -142,7 +142,7 @@ export default function AdminAiPage() {
           timestamp: Date.now(),
         },
       ]);
-      setLastUsed(new Date().toLocaleTimeString('sk-SK', { hour: '2-digit', minute: '2-digit' }));
+      setLastUsed(new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }));
     } catch (err) {
       const errText = err instanceof Error ? err.message : 'AI connection error. Try again.';
       setMessages((prev) => [
@@ -195,7 +195,7 @@ export default function AdminAiPage() {
   const [aiActive,       setAiActive]       = useState(true);
   const [tone,           setTone]           = useState<Tone>('friendly');
   const [assistantName,  setAssistantName]  = useState('Kate AI');
-  const [greeting,       setGreeting]       = useState('Dobrý deň! Som AI asistent DentCare Clinic. Čím môžem pomôcť?');
+  const [greeting,       setGreeting]       = useState('Hello! I am the AI assistant for DentCare Clinic. How can I help you?');
   const [priorities,     setPriorities]     = useState<PriorityItem[]>(DEFAULT_PRIORITIES);
 
   useEffect(() => {
@@ -231,12 +231,12 @@ export default function AdminAiPage() {
           style={{ cursor: indexing ? 'wait' : 'pointer', border: 'none', background: 'none', padding: 0 }}
         >
           <RefreshIcon spin={indexing} />
-          {indexing ? 'Indexujem...' : 'Aktualizovať znalosti'}
+          {indexing ? 'Indexing...' : 'Update knowledge'}
         </button>
         {status && status.total > 0 && (
           <span className={styles.statusChipIndexed}>✓ {status.total} chunks</span>
         )}
-        {lastUsed && <span className={styles.statusChipGray}>Posledná odpoveď: {lastUsed}</span>}
+        {lastUsed && <span className={styles.statusChipGray}>Last response: {lastUsed}</span>}
         <span className={`${styles.statusChipGray} ${styles.statusChipRight}`}>
           OpenAI gpt-4o-mini · function calling
         </span>
@@ -272,8 +272,8 @@ export default function AdminAiPage() {
           {messages.length === 0 && !loading && (
             <div className={styles.chatEmpty}>
               <BotIcon />
-              <p>Opýtajte sa čokoľvek alebo dajte pokyn.<br />
-                Môžem zobraziť rezervácie, <strong>zmeniť hodiny</strong>, <strong>odpovedať na recenzie</strong> a oveľa viac.</p>
+              <p>Ask anything or give a command.<br />
+                I can show reservations, <strong>change hours</strong>, <strong>reply to reviews</strong> and much more.</p>
             </div>
           )}
 
@@ -324,7 +324,7 @@ export default function AdminAiPage() {
             ref={textareaRef}
             className={styles.chatTextarea}
             rows={1}
-            placeholder="Opýtajte sa alebo dajte pokyn... (Enter — odoslať)"
+            placeholder="Ask or give a command... (Enter to send)"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
@@ -358,7 +358,7 @@ export default function AdminAiPage() {
       </section>
 
       {/* ── Save toast ───────────────────────────────────────────────────── */}
-      {savedToast && <div className={styles.toast}>✓ Nastavenia uložené</div>}
+      {savedToast && <div className={styles.toast}>✓ Settings saved</div>}
 
       {/* ── Settings Modal ────────────────────────────────────────────────── */}
       {showSettings && (
@@ -399,17 +399,17 @@ export default function AdminAiPage() {
                     </span>
                     <span className={styles.statusText}>
                       {indexing
-                        ? 'Indexujem...'
+                        ? 'Indexing...'
                         : status && status.total > 0
                           ? '✅ AI up to date'
-                          : 'Nie je indexované'}
+                          : 'Not indexed'}
                     </span>
                   </div>
 
                   {status && status.total > 0 ? (
                     <>
                       <div className={styles.stats}>
-                        <span>Indexovaných: <b>{status.total} chunks</b></span>
+                        <span>Indexed: <b>{status.total} chunks</b></span>
                       </div>
                       <div className={styles.breakdownTags}>
                         {Object.entries(status.breakdown).map(([type, count]) => (
@@ -420,13 +420,13 @@ export default function AdminAiPage() {
                       </div>
                       {status.lastUpdated && (
                         <p className={styles.hint}>
-                          Posledná aktualizácia: {new Date(status.lastUpdated).toLocaleString('sk-SK')}
+                          Last updated: {new Date(status.lastUpdated).toLocaleString('en-GB')}
                         </p>
                       )}
                     </>
                   ) : (
                     <div className={styles.stats}>
-                      <span>Kliknite &ldquo;Aktualizovať znalosti&rdquo; pre načítanie dát</span>
+                      <span>Click &ldquo;Update knowledge&rdquo; to load data</span>
                     </div>
                   )}
 
@@ -444,9 +444,9 @@ export default function AdminAiPage() {
                     disabled={indexing}
                   >
                     <RefreshIcon spin={indexing} />
-                    {indexing ? 'Indexujem...' : 'Aktualizovať znalosti'}
+                    {indexing ? 'Indexing...' : 'Update knowledge'}
                   </button>
-                  <p className={styles.hint}>Aktualizuje znalosti z databázy a webu barbershopu</p>
+                  <p className={styles.hint}>Updates knowledge from the database and clinic website</p>
                 </>
               )}
 
@@ -455,13 +455,13 @@ export default function AdminAiPage() {
                 <div className={styles.twoCol}>
                   {/* Left column */}
                   <div>
-                    <h4 className={styles.subTitle}>AI Správanie</h4>
+                    <h4 className={styles.subTitle}>AI Behavior</h4>
                     <div className={styles.settingRow}>
-                      <span>AI asistent aktívny</span>
+                      <span>AI assistant active</span>
                       <Toggle checked={aiActive} onChange={setAiActive} />
                     </div>
                     <label className={styles.field}>
-                      <span className={styles.label}>Tón</span>
+                      <span className={styles.label}>Tone</span>
                       <select
                         className={styles.input}
                         value={tone}
@@ -471,7 +471,7 @@ export default function AdminAiPage() {
                       </select>
                     </label>
                     <label className={styles.field}>
-                      <span className={styles.label}>Meno asistenta</span>
+                      <span className={styles.label}>Assistant name</span>
                       <input
                         className={styles.input}
                         type="text"
@@ -480,7 +480,7 @@ export default function AdminAiPage() {
                       />
                     </label>
                     <label className={styles.field}>
-                      <span className={styles.label}>Uvítacia správa</span>
+                      <span className={styles.label}>Welcome message</span>
                       <textarea
                         className={styles.textarea}
                         rows={3}
@@ -491,7 +491,7 @@ export default function AdminAiPage() {
 
                     {/* Chat background color picker */}
                     <div className={styles.field}>
-                      <span className={styles.label}>FARBA POZADIA CHATU</span>
+                      <span className={styles.label}>CHAT BACKGROUND COLOR</span>
                       <div className={styles.colorPicker}>
                         {CHAT_BG_PRESETS.map((color) => (
                           <button
@@ -511,20 +511,20 @@ export default function AdminAiPage() {
                           value={chatBg}
                           onChange={(e) => saveChatBg(e.target.value)}
                           className={styles.colorInput}
-                          title="Vlastná farba"
+                          title="Custom color"
                         />
-                        <span className={styles.label} style={{ marginBottom: 0 }}>vlastná</span>
+                        <span className={styles.label} style={{ marginBottom: 0 }}>custom</span>
                       </div>
                     </div>
 
                     <button type="button" className={styles.saveBtn} onClick={saveSettings}>
-                      Uložiť nastavenia
+                      Save settings
                     </button>
                   </div>
 
                   {/* Right column */}
                   <div>
-                    <h4 className={styles.subTitle}>Prioritizovať informácie o:</h4>
+                    <h4 className={styles.subTitle}>Prioritize information about:</h4>
                     <ul className={styles.priorityList}>
                       {priorities.map((p) => (
                         <li key={p.id} className={styles.priorityItem}>

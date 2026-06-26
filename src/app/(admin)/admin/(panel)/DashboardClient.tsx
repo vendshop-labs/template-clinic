@@ -82,7 +82,7 @@ export default function DashboardClient({
       <div className={styles.stats}>
         {isServices ? (
           <>
-            <StatCard label="Dnešné rezervácie" value={stats.todayAppointments} />
+            <StatCard label="Today's appointments" value={stats.todayAppointments} />
             <StatCard label="Klienti" value={stats.clientCount} />
             <StatCard label="Recenzie" value={stats.reviewCount} />
           </>

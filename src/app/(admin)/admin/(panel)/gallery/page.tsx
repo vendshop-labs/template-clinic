@@ -191,7 +191,7 @@ export default function GalleryPage() {
                 type="text"
                 className={styles.altInput}
                 defaultValue={img.alt}
-                placeholder="Popis fotky..."
+                placeholder="Photo description..."
                 onBlur={(e) => void updateAlt(img, e.target.value)}
               />
               <span className={styles.order}>#{img.sortOrder + 1}</span>

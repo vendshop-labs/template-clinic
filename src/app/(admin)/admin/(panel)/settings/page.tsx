@@ -38,7 +38,7 @@ function MaskedInput({ value, onChange, placeholder }: { value: string; onChange
   return (
     <div className={styles.masked}>
       <input className={styles.input} type={show ? 'text' : 'password'} value={value} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} />
-      <button type="button" className={styles.eye} onClick={() => setShow((s) => !s)} aria-label="Zobraziť alebo skryť">
+      <button type="button" className={styles.eye} onClick={() => setShow((s) => !s)} aria-label="Show or hide">
         <EyeIcon off={show} />
       </button>
     </div>
@@ -212,13 +212,13 @@ export default function AdminSettingsPage() {
             <>
               {/* ── Logo upload ─────────────────────────────────────── */}
               <div style={{
-                border: '1px solid rgba(255,255,255,0.08)',
+                border: '1px solid var(--color-border)',
                 borderRadius: '12px',
                 padding: '1.25rem 1.5rem',
-                background: '#111',
+                background: 'var(--color-bg-alt)',
                 marginBottom: '1.5rem',
               }}>
-                <p style={{ color: '#888', fontSize: '0.78rem', letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '1rem' }}>
+                <p style={{ color: 'var(--color-text-muted)', fontSize: '0.78rem', letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '1rem' }}>
                   {tr.settings.logoLabel}
                 </p>
                 {logoUrl ? (
@@ -227,9 +227,9 @@ export default function AdminSettingsPage() {
                     <img
                       src={logoUrl}
                       alt="Logo"
-                      style={{ height: '56px', objectFit: 'contain', background: '#1a1a1a', borderRadius: '8px', padding: '0.5rem' }}
+                      style={{ height: '56px', objectFit: 'contain', background: 'var(--color-bg-subtle)', borderRadius: '8px', padding: '0.5rem' }}
                     />
-                    <label style={{ cursor: logoUploading ? 'wait' : 'pointer', color: '#B87333', fontSize: '0.875rem', textDecoration: 'underline' }}>
+                    <label style={{ cursor: logoUploading ? 'wait' : 'pointer', color: 'var(--color-primary)', fontSize: '0.875rem', textDecoration: 'underline' }}>
                       {logoUploading ? tr.settings.uploading : tr.settings.changeLogo}
                       <input type="file" accept="image/*" onChange={handleLogoUpload} style={{ display: 'none' }} disabled={logoUploading} />
                     </label>
@@ -255,35 +255,35 @@ export default function AdminSettingsPage() {
                   <label style={{
                     display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem',
                     padding: '1.5rem', cursor: logoUploading ? 'wait' : 'pointer',
-                    border: '1px dashed rgba(255,255,255,0.12)', borderRadius: '8px', color: '#666',
+                    border: '1px dashed var(--color-border)', borderRadius: '8px', color: 'var(--color-text-muted)',
                   }}>
                     <span style={{ fontSize: '1.5rem', lineHeight: 1 }}>↑</span>
                     <span>{logoUploading ? tr.settings.uploading : tr.settings.uploadLogo}</span>
-                    <span style={{ fontSize: '0.75rem', color: '#444' }}>WebP / PNG / JPG · výstup 400×120 · max 5 MB</span>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>WebP / PNG / JPG · output 400×120 · max 5 MB</span>
                     <input type="file" accept="image/*" onChange={handleLogoUpload} style={{ display: 'none' }} disabled={logoUploading} />
                   </label>
                 )}
               </div>
 
               {/* ── Store fields ─────────────────────────────────────── */}
-              <Field label="Názov salóna">
+              <Field label="Clinic name">
                 <input className={styles.input} value={store.name} onChange={(e) => sStore('name', e.target.value)} />
               </Field>
-              <Field label="Popis">
+              <Field label="Description">
                 <textarea className={styles.textarea} rows={3} value={store.description} onChange={(e) => sStore('description', e.target.value)} />
               </Field>
               <div className={styles.grid2}>
-                <Field label="Telefón">
+                <Field label="Phone">
                   <input className={styles.input} value={store.phone} onChange={(e) => sStore('phone', e.target.value)} />
                 </Field>
                 <Field label="Email">
                   <input className={styles.input} type="email" value={store.email} onChange={(e) => sStore('email', e.target.value)} />
                 </Field>
               </div>
-              <Field label="Adresa salóna">
-                <input className={styles.input} value={store.address} onChange={(e) => sStore('address', e.target.value)} placeholder="Hlavná ulica 15" />
+              <Field label="Clinic address">
+                <input className={styles.input} value={store.address} onChange={(e) => sStore('address', e.target.value)} placeholder="Main Street 15" />
               </Field>
-              <Field label="Mesto">
+              <Field label="City">
                 <input className={styles.input} value={store.city} onChange={(e) => sStore('city', e.target.value)} placeholder="Trenčín" />
               </Field>
 
@@ -296,10 +296,10 @@ export default function AdminSettingsPage() {
               </div>
 
               <div className={styles.grid2} style={{ marginTop: '1rem' }}>
-                <Field label="Zemepisná šírka (lat)">
+                <Field label="Latitude (lat)">
                   <input className={styles.input} type="number" step="any" value={store.mapLat} onChange={(e) => sStore('mapLat', e.target.value)} placeholder="48.8944" />
                 </Field>
-                <Field label="Zemepisná dĺžka (lng)">
+                <Field label="Longitude (lng)">
                   <input className={styles.input} type="number" step="any" value={store.mapLng} onChange={(e) => sStore('mapLng', e.target.value)} placeholder="18.0440" />
                 </Field>
               </div>
@@ -346,11 +346,11 @@ export default function AdminSettingsPage() {
               <span className={styles.blockTitle}>Email</span>
               <Toggle checked={notif.emailOn} onChange={(v) => sNotif('emailOn', v)} />
             </div>
-            <Field label="Email pre notifikácie">
+            <Field label="Notification email">
               <input className={styles.input} type="email" value={notif.email} onChange={(e) => sNotif('email', e.target.value)} />
             </Field>
             <div className={styles.settingRow}>
-              <span>Notifikácie o nových recenziách</span>
+              <span>Notifications for new reviews</span>
               <Toggle checked={notif.reviewsOn} onChange={(v) => sNotif('reviewsOn', v)} />
             </div>
           </div>
@@ -369,7 +369,7 @@ export default function AdminSettingsPage() {
             <button type="button" className={styles.testBtn} onClick={() => console.log('[test telegram]')}>Test</button>
           </div>
 
-          <button type="button" className={styles.saveBtn} onClick={showToast}>Uložiť</button>
+          <button type="button" className={styles.saveBtn} onClick={showToast}>Save</button>
         </div>
       )}
 
@@ -377,31 +377,31 @@ export default function AdminSettingsPage() {
       {tab === 'security' && (
         <div className={styles.card}>
           <div className={styles.block}>
-            <span className={styles.blockTitle}>Zmena hesla</span>
-            <Field label="Aktuálne heslo">
+            <span className={styles.blockTitle}>Change password</span>
+            <Field label="Current password">
               <MaskedInput value={security.currentPw} onChange={(v) => sSec('currentPw', v)} />
             </Field>
-            <Field label="Nové heslo">
+            <Field label="New password">
               <MaskedInput value={security.newPw} onChange={(v) => sSec('newPw', v)} />
             </Field>
-            <Field label="Potvrďte heslo">
+            <Field label="Confirm password">
               <MaskedInput value={security.confirmPw} onChange={(v) => sSec('confirmPw', v)} />
             </Field>
-            <button type="button" className={styles.saveBtn} onClick={showToast}>Zmeniť heslo</button>
+            <button type="button" className={styles.saveBtn} onClick={showToast}>Change password</button>
           </div>
 
           <div className={styles.block}>
             <div className={styles.settingRow}>
-              <span>Aktívnych relácií: <b>2</b></span>
-              <button type="button" className={styles.dangerBtn} onClick={() => console.log('[terminate all sessions]')}>Ukončiť všetky relácie</button>
+              <span>Active sessions: <b>2</b></span>
+              <button type="button" className={styles.dangerBtn} onClick={() => console.log('[terminate all sessions]')}>Terminate all sessions</button>
             </div>
           </div>
 
           <div className={styles.block}>
             <div className={styles.settingRow}>
               <span className={styles.twoFa}>
-                Dvojfaktorová autentifikácia
-                <span className={styles.soon}>Čoskoro</span>
+                Two-factor authentication
+                <span className={styles.soon}>Soon</span>
               </span>
               <Toggle checked={security.twoFactor} onChange={(v) => sSec('twoFactor', v)} disabled />
             </div>
@@ -419,7 +419,7 @@ export default function AdminSettingsPage() {
       {toast && (
         <div className={styles.toast} role="status">
           <svg width="18" height="18" viewBox="0 0 24 24" {...stroke} aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
-          Nastavenia uložené
+          Settings saved
         </div>
       )}
     </div>

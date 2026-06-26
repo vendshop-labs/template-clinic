@@ -1,7 +1,7 @@
 
 /* ===== CLINIC: light base ===== */
 html, body {
-  background-color: #f8fafc !important;
+  background-color: var(--color-bg) !important;
   color: #0f172a;
   min-height: 100vh;
 }
@@ -1894,4 +1894,23 @@ section {
 [class*="adminMain"] {
   background-color: var(--color-bg);
   color: var(--color-text);
+}
+
+/* ─── ADMIN SHELL FORCE LIGHT ──────────────────────────────────── */
+[class*="AdminShell"],
+[class*="adminShell"],
+[class*="AdminLayout"],
+[class*="adminLayout"],
+[class*="panelContent"],
+[class*="shellContent"],
+[class*="shell_"],
+[class*="content_"] {
+  background-color: var(--color-bg) !important;
+  color: var(--color-text) !important;
+}
+
+[class*="page_"],
+[class*="wrap_"],
+[class*="inner_"] {
+  background-color: var(--color-bg) !important;
 }

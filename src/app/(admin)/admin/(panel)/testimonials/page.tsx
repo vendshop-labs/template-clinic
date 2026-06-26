@@ -57,7 +57,7 @@ export default function AdminTestimonialsPage() {
   }
 
   async function deleteItem(id: string) {
-    if (!confirm('Vymazať recenziu?')) return;
+    if (!confirm('Delete this review?')) return;
     await fetch(`/api/admin/testimonials/${id}`, { method: 'DELETE' });
     await load();
   }
@@ -66,7 +66,7 @@ export default function AdminTestimonialsPage() {
     <div className="admin-page">
       <div className="admin-page__header">
         <h1>
-          Recenzie
+          Reviews
           {counts.pending > 0 && (
             <span className="admin-badge">{counts.pending}</span>
           )}
@@ -81,10 +81,10 @@ export default function AdminTestimonialsPage() {
             onClick={() => setFilter(s)}
             className={`admin-filter__btn ${filter === s ? 'active' : ''}`}
           >
-            {s === 'ALL' ? `Všetky (${counts.all})`
-              : s === 'PENDING' ? `Čakajú (${counts.pending})`
-              : s === 'APPROVED' ? `Schválené (${counts.approved})`
-              : `Zamietnuté (${counts.rejected})`}
+            {s === 'ALL' ? `All (${counts.all})`
+              : s === 'PENDING' ? `Pending (${counts.pending})`
+              : s === 'APPROVED' ? `Approved (${counts.approved})`
+              : `Rejected (${counts.rejected})`}
           </button>
         ))}
       </div>
@@ -96,10 +96,10 @@ export default function AdminTestimonialsPage() {
               <strong>{t.customerName}</strong>
               <span style={{ color: 'var(--color-gold, #C96030)' }}>{'★'.repeat(t.rating)}</span>
               <span className={`status-badge status-badge--${t.status.toLowerCase()}`}>
-                {t.status === 'PENDING' ? 'Čaká' : t.status === 'APPROVED' ? 'Schválená' : 'Zamietnutá'}
+                {t.status === 'PENDING' ? 'Pending' : t.status === 'APPROVED' ? 'Approved' : 'Rejected'}
               </span>
               <span className="admin-testimonials__date">
-                {new Date(t.createdAt).toLocaleDateString('sk-SK')}
+                {new Date(t.createdAt).toLocaleDateString('en-GB')}
               </span>
             </div>
 
@@ -107,16 +107,16 @@ export default function AdminTestimonialsPage() {
 
             {t.adminReply ? (
               <div className="admin-testimonials__existing-reply">
-                <span className="admin-testimonials__reply-label">Vaša odpoveď:</span>
+                <span className="admin-testimonials__reply-label">Your reply:</span>
                 <p>{t.adminReply}</p>
               </div>
             ) : null}
 
             <div className="admin-testimonials__reply">
-              <label>Odpoveď majiteľa (viditeľná na webe):</label>
+              <label>OWNER REPLY (VISIBLE ON SITE):</label>
               <textarea
                 rows={2}
-                placeholder="Napíšte odpoveď..."
+                placeholder="Write a reply..."
                 value={replyDraft[t.id] ?? t.adminReply ?? ''}
                 onChange={(e) =>
                   setReplyDraft((p) => ({ ...p, [t.id]: e.target.value }))
@@ -128,7 +128,7 @@ export default function AdminTestimonialsPage() {
                 onClick={() => void saveReply(t.id)}
                 disabled={saving === t.id}
               >
-                {saving === t.id ? 'Ukladá...' : 'Uložiť odpoveď'}
+                {saving === t.id ? 'Saving...' : 'Save reply'}
               </button>
             </div>
 
@@ -139,7 +139,7 @@ export default function AdminTestimonialsPage() {
                   className="btn-sm btn-primary"
                   onClick={() => void setStatus(t.id, 'APPROVED')}
                 >
-                  ✓ Schváliť
+                  ✓ Approve
                 </button>
               )}
               {t.status !== 'REJECTED' && (
@@ -148,7 +148,7 @@ export default function AdminTestimonialsPage() {
                   className="btn-sm btn-danger"
                   onClick={() => void setStatus(t.id, 'REJECTED')}
                 >
-                  ✕ Zamietnuť
+                  ✕ Reject
                 </button>
               )}
               <button
@@ -156,7 +156,7 @@ export default function AdminTestimonialsPage() {
                 className="btn-sm btn-ghost"
                 onClick={() => void deleteItem(t.id)}
               >
-                Vymazať
+                Delete
               </button>
             </div>
           </div>
@@ -164,7 +164,7 @@ export default function AdminTestimonialsPage() {
 
         {items.length === 0 && (
           <p style={{ color: 'var(--color-text-muted, #666)', padding: '2rem' }}>
-            Žiadne recenzie
+            No reviews yet
           </p>
         )}
       </div>

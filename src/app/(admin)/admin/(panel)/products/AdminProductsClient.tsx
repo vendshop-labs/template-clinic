@@ -116,7 +116,7 @@ export default function AdminDigitalProductsClient({ initialProducts }: Props) {
       const url = await uploadAsset(file, 'preview');
       setPreviewUrl(url);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Chyba pri nahrávaní');
+      setError(err instanceof Error ? err.message : 'Upload error');
     }
     setUploadingPreview(false);
   }
@@ -129,7 +129,7 @@ export default function AdminDigitalProductsClient({ initialProducts }: Props) {
       const url = await uploadAsset(file, 'file');
       setFileUrl(url);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Chyba pri nahrávaní');
+      setError(err instanceof Error ? err.message : 'Upload error');
     }
     setUploadingFile(false);
   }
@@ -147,7 +147,7 @@ export default function AdminDigitalProductsClient({ initialProducts }: Props) {
       }));
 
     if (!slug.trim() || !price || !translationsArray.length) {
-      setError('Vyplňte slug, cenu a aspoň jeden preklad (SK)');
+      setError('Please fill in slug, price and at least one translation (SK)');
       setSaving(false);
       return;
     }
@@ -170,7 +170,7 @@ export default function AdminDigitalProductsClient({ initialProducts }: Props) {
         body: JSON.stringify(body),
       });
       const data = await res.json() as DigitalProduct & { error?: string };
-      if (!res.ok) throw new Error(data.error ?? 'Uloženie zlyhalo');
+      if (!res.ok) throw new Error(data.error ?? 'Save failed');
 
       if (editing) {
         setProducts((prev) => prev.map((p) => (p.id === data.id ? data : p)));
@@ -179,7 +179,7 @@ export default function AdminDigitalProductsClient({ initialProducts }: Props) {
       }
       closeForm();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Chyba');
+      setError(err instanceof Error ? err.message : 'Error');
     }
     setSaving(false);
   }
@@ -197,7 +197,7 @@ export default function AdminDigitalProductsClient({ initialProducts }: Props) {
   }
 
   async function handleDelete(id: string) {
-    if (!confirm('Naozaj vymazať produkt?')) return;
+    if (!confirm('Delete this product?')) return;
     const res = await fetch(`/api/admin/products/${id}`, { method: 'DELETE' });
     if (res.ok) setProducts((prev) => prev.filter((p) => p.id !== id));
   }
@@ -207,10 +207,10 @@ export default function AdminDigitalProductsClient({ initialProducts }: Props) {
   return (
     <div className="admin-page">
       <div className="admin-page__header">
-        <h1>Digitálne produkty</h1>
+        <h1>Digital Products</h1>
         {!formOpen && (
           <button className="btn-primary btn-sm" onClick={openCreate}>
-            + Pridať produkt
+            + Add Product
           </button>
         )}
       </div>
@@ -218,12 +218,12 @@ export default function AdminDigitalProductsClient({ initialProducts }: Props) {
       {formOpen && (
         <div className="admin-masters__form" style={{ marginBottom: '2rem' }}>
           <h2 style={{ fontSize: '1.1rem', marginBottom: '1rem', color: 'var(--color-text-primary)' }}>
-            {editing ? 'Upraviť produkt' : 'Nový produkt'}
+            {editing ? 'Edit Product' : 'New Product'}
           </h2>
 
           <div className="admin-services__form-grid">
             <div className="booking__field">
-              <label>Slug (URL identifikátor)</label>
+              <label>Slug (URL identifier)</label>
               <input
                 value={slug}
                 onChange={(e) => setSlug(e.target.value)}
@@ -231,7 +231,7 @@ export default function AdminDigitalProductsClient({ initialProducts }: Props) {
               />
             </div>
             <div className="booking__field">
-              <label>Cena</label>
+              <label>Price</label>
               <input
                 type="number"
                 min="0"
@@ -242,7 +242,7 @@ export default function AdminDigitalProductsClient({ initialProducts }: Props) {
               />
             </div>
             <div className="booking__field">
-              <label>Mena</label>
+              <label>Currency</label>
               <select
                 value={currency}
                 onChange={(e) => setCurrency(e.target.value)}
@@ -261,7 +261,7 @@ export default function AdminDigitalProductsClient({ initialProducts }: Props) {
 
           <div className="admin-services__form-grid" style={{ marginTop: '1rem' }}>
             <div className="booking__field">
-              <label>Obrázok náhľadu</label>
+              <label>Preview image</label>
               {previewUrl && (
                 <img
                   src={previewUrl}
@@ -284,11 +284,11 @@ export default function AdminDigitalProductsClient({ initialProducts }: Props) {
                 style={{ color: 'var(--color-text-secondary)' }}
               />
               {uploadingPreview && (
-                <span style={{ fontSize: '0.75rem', color: 'var(--color-copper, #B87333)' }}>Nahrávam...</span>
+                <span style={{ fontSize: '0.75rem', color: 'var(--color-copper, #B87333)' }}>Uploading......</span>
               )}
             </div>
             <div className="booking__field">
-              <label>Súbor produktu (PDF / zip)</label>
+              <label>Product file (PDF / zip)</label>
               {fileUrl && (
                 <a
                   href={fileUrl}
@@ -296,7 +296,7 @@ export default function AdminDigitalProductsClient({ initialProducts }: Props) {
                   rel="noopener noreferrer"
                   style={{ fontSize: '0.75rem', color: 'var(--color-copper, #B87333)', display: 'block', marginBottom: '0.4rem' }}
                 >
-                  Aktuálny súbor ↗
+                  Current file ↗
                 </a>
               )}
               <input
@@ -307,14 +307,14 @@ export default function AdminDigitalProductsClient({ initialProducts }: Props) {
                 style={{ color: 'var(--color-text-secondary)' }}
               />
               {uploadingFile && (
-                <span style={{ fontSize: '0.75rem', color: 'var(--color-copper, #B87333)' }}>Nahrávam...</span>
+                <span style={{ fontSize: '0.75rem', color: 'var(--color-copper, #B87333)' }}>Uploading......</span>
               )}
             </div>
           </div>
 
           <div style={{ marginTop: '1.5rem' }}>
             <p style={{ color: 'var(--color-text-muted)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.75rem' }}>
-              Preklady
+              Translations
             </p>
             <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
               {SUPPORTED_LOCALES.map((loc) => (
@@ -390,7 +390,7 @@ export default function AdminDigitalProductsClient({ initialProducts }: Props) {
               onClick={() => void handleSave()}
               disabled={saving || uploadingPreview || uploadingFile}
             >
-              {saving ? 'Ukladám...' : 'Uložiť'}
+              {saving ? 'Saving...' : 'Save'}
             </button>
             <button
               type="button"
@@ -404,7 +404,7 @@ export default function AdminDigitalProductsClient({ initialProducts }: Props) {
                 cursor: 'pointer',
               }}
             >
-              Zrušiť
+              Cancel
             </button>
           </div>
         </div>
@@ -412,7 +412,7 @@ export default function AdminDigitalProductsClient({ initialProducts }: Props) {
 
       {products.length === 0 && !formOpen && (
         <p style={{ color: 'var(--color-text-muted)', padding: '2rem 0' }}>
-          Zatiaľ žiadne digitálne produkty. Kliknite „+ Pridať produkt".
+          No digital products yet. Click &ldquo;+ Add Product&rdquo; to get started.
         </p>
       )}
 
@@ -446,7 +446,7 @@ export default function AdminDigitalProductsClient({ initialProducts }: Props) {
                 </p>
                 <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', margin: '0.2rem 0 0' }}>
                   {p.price} {p.currency} · /{p.slug}
-                  {!p.active && ' · skrytý'}
+                  {!p.active && ' · hidden'}
                 </p>
               </div>
               <div style={{ display: 'flex', gap: '0.5rem', flexShrink: 0 }}>
@@ -463,7 +463,7 @@ export default function AdminDigitalProductsClient({ initialProducts }: Props) {
                     fontSize: '0.8rem',
                   }}
                 >
-                  Upraviť
+                  Edit
                 </button>
                 <button
                   className="btn-sm"
@@ -478,14 +478,14 @@ export default function AdminDigitalProductsClient({ initialProducts }: Props) {
                     fontSize: '0.8rem',
                   }}
                 >
-                  {p.active ? 'Skryť' : 'Zobraziť'}
+                  {p.active ? 'Hide' : 'Show'}
                 </button>
                 <button
                   className="btn-sm btn-danger"
                   onClick={() => void handleDelete(p.id)}
                   style={{ fontSize: '0.8rem', padding: '0.3rem 0.7rem' }}
                 >
-                  Vymazať
+                  Delete
                 </button>
               </div>
             </div>

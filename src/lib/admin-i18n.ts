@@ -471,7 +471,7 @@ const EN: AdminTranslations = {
     },
     savingBtn:         'Saving...',
     saveBtn:           'Save changes',
-    logoLabel:         'Salon logo',
+    logoLabel:         'Clinic logo',
     changeLogo:        'Change logo',
     uploadLogo:        'Upload logo',
     uploading:         'Uploading...',
