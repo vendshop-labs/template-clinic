@@ -15,17 +15,15 @@ export default function BookingSection() {
   const [submitting,   setSubmitting]   = useState(false);
   const [submitError,  setSubmitError]  = useState('');
 
-  // Track current date for barber-change reload
   const currentDateRef = useRef<string>(new Date().toISOString().split('T')[0]);
 
   const fetchSlots = useCallback(async (date: string) => {
     currentDateRef.current = date;
-    setBookedSlots([]);       // clear stale data immediately
+    setBookedSlots([]);
     setLoadingSlots(true);
     try {
       const res  = await fetch(`/api/availability?date=${date}`);
       const data = (await res.json()) as { slots: { time: string; available: boolean }[] };
-      // Extract unavailable slots to reuse existing DateTimePicker bookedSlots interface
       const booked = (data.slots ?? []).filter((s) => !s.available).map((s) => s.time);
       setBookedSlots(booked);
     } catch {
@@ -35,7 +33,6 @@ export default function BookingSection() {
     }
   }, []);
 
-  // Load slots for initial day on mount
   useEffect(() => {
     const today = new Date();
     void fetchSlots(today.toISOString().split('T')[0]);
@@ -48,7 +45,6 @@ export default function BookingSection() {
   }, [fetchSlots]);
 
   const handleBarberChange = useCallback(() => {
-    // Reload slots when barber changes to get fresh data
     if (currentDateRef.current) void fetchSlots(currentDateRef.current);
   }, [fetchSlots]);
 
@@ -70,11 +66,11 @@ export default function BookingSection() {
     const note    = String(data.get('note')    ?? '').trim();
 
     if (!selectedDate || !selectedTime) {
-      setSubmitError('Vyberte deň a čas rezervácie.');
+      setSubmitError('Please select a date and time.');
       return;
     }
     if (!name || !phone) {
-      setSubmitError('Vyplňte meno a telefón.');
+      setSubmitError('Please fill in your name and phone number.');
       return;
     }
 
@@ -95,29 +91,27 @@ export default function BookingSection() {
       });
 
       if (res.status === 409) {
-        // Slot taken — reload fresh data
         await fetchSlots(selectedDate);
         setSelectedTime('');
-        setSubmitError('Tento termín bol medzičasom obsadený. Vyberte iný čas.');
+        setSubmitError('This slot was just taken. Please choose another time.');
         setSubmitting(false);
         return;
       }
 
       if (!res.ok) {
-        setSubmitError('Chyba pri ukladaní. Skúste znovu.');
+        setSubmitError('Error saving appointment. Please try again.');
         setSubmitting(false);
         return;
       }
 
-      // Optimistically mark slot as booked
       setBookedSlots((prev) => [...prev, selectedTime]);
 
       const lines = [
-        `📅 *Rezervácia — DentCare Clinic*`,
+        `📅 *Appointment — DentCare Clinic*`,
         `━━━━━━━━━━━━━━━━━━`,
         `👤 ${name}  📞 ${phone}`,
-        service ? `✂️ ${service}` : '',
-        barber  ? `💈 ${barber}` : '',
+        service ? `🦷 ${service}` : '',
+        barber  ? `👨‍⚕️ ${barber}` : '',
         `📆 ${selectedDate}  🕐 ${selectedTime}`,
         note    ? `💬 ${note}` : '',
         `━━━━━━━━━━━━━━━━━━`,
@@ -133,7 +127,7 @@ export default function BookingSection() {
       setSelectedDate('');
       setSelectedTime('');
     } catch {
-      setSubmitError('Sieťová chyba. Skúste znovu.');
+      setSubmitError('Network error. Please try again.');
     } finally {
       setSubmitting(false);
     }
@@ -142,11 +136,11 @@ export default function BookingSection() {
   return (
     <section id="rezervacia" className="booking">
       <ScrollReveal direction="up" className="section-header">
-        <p className="section-label">Rezervácia</p>
-        <h2 className="section-title">Zarezervujte si termín</h2>
+        <p className="section-label">Booking</p>
+        <h2 className="section-title">Schedule Your Appointment</h2>
         <GoldDivider />
         <p className="section-subtitle">
-          Vyplňte formulár — uložíme termín a otvoríme WhatsApp s potvrdením.
+          Fill in the form — we&apos;ll save your appointment and open WhatsApp for confirmation.
         </p>
       </ScrollReveal>
 
@@ -156,22 +150,22 @@ export default function BookingSection() {
 
             <div className="booking__form-row">
               <div>
-                <label className="booking__label">Služba</label>
+                <label className="booking__label">Service</label>
                 <select name="service" required className="booking__select">
-                  <option value="">Vyberte službu...</option>
+                  <option value="">Select service...</option>
                   {SERVICE_OPTIONS.map((opt) => (
                     <option key={opt} value={opt}>{opt}</option>
                   ))}
                 </select>
               </div>
               <div>
-                <label className="booking__label">Barber</label>
+                <label className="booking__label">Doctor</label>
                 <select
                   name="barber"
                   className="booking__select"
                   onChange={handleBarberChange}
                 >
-                  <option value="">Bez preferencie</option>
+                  <option value="">No preference</option>
                   {BARBERS.map((barber) => (
                     <option key={barber} value={barber}>{barber}</option>
                   ))}
@@ -180,7 +174,7 @@ export default function BookingSection() {
             </div>
 
             <div>
-              <label className="booking__label">Vyberte deň a čas</label>
+              <label className="booking__label">Select Date &amp; Time</label>
               <div className="booking__picker-wrap">
                 <DateTimePicker
                   onSelect={handleDateTimeSelect}
@@ -193,17 +187,17 @@ export default function BookingSection() {
 
             <div className="booking__form-row">
               <div>
-                <label className="booking__label">Meno</label>
+                <label className="booking__label">Name</label>
                 <input
                   type="text"
                   name="name"
-                  placeholder="Vaše meno"
+                  placeholder="Your name"
                   required
                   className="booking__input"
                 />
               </div>
               <div>
-                <label className="booking__label">Telefón</label>
+                <label className="booking__label">Phone</label>
                 <input
                   type="tel"
                   name="phone"
@@ -215,16 +209,16 @@ export default function BookingSection() {
             </div>
 
             <div>
-              <label className="booking__label">Poznámka (nepovinné)</label>
+              <label className="booking__label">Notes (optional)</label>
               <textarea
                 name="note"
-                placeholder="Špeciálne požiadavky alebo poznámky..."
+                placeholder="Special requests or notes..."
                 className="booking__textarea"
               />
             </div>
 
             {submitError && (
-              <p style={{ color: '#f87171', fontSize: '0.875rem', marginBottom: '0.5rem' }}>
+              <p style={{ color: 'var(--color-error)', fontSize: '0.875rem', marginBottom: '0.5rem' }}>
                 ⚠️ {submitError}
               </p>
             )}
@@ -236,13 +230,13 @@ export default function BookingSection() {
                 disabled={submitting || loadingSlots}
               >
                 <WhatsAppIcon size={18} />
-                {submitting ? 'Ukladám...' : 'Odoslať cez WhatsApp'}
+                {submitting ? 'Saving...' : 'Send via WhatsApp'}
               </button>
             </div>
           </form>
 
           <p className="booking__note">
-            Termín sa uloží do systému. Po kliknutí sa otvorí WhatsApp s potvrdením. Odpovedáme do 30 minút.
+            Appointment will be saved to the system. WhatsApp will open for confirmation. We respond within 30 minutes.
           </p>
         </div>
       </ScrollReveal>

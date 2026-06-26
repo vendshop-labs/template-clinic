@@ -44,6 +44,7 @@ html, body {
   /* === MISC === */
   --color-whatsapp:      #25D366;
   --color-whatsapp-dark: #20BD5A;
+  --color-error:         #ef4444;
   --transition:          0.3s ease;
 }
 
@@ -847,10 +848,7 @@ body::after {
 .booking {
   padding: 6rem 2rem;
   position: relative;
-  background:
-    linear-gradient(to bottom, rgba(10,10,10,0.92), rgba(10,10,10,0.85)),
-    url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=1920&q=80')
-    center/cover no-repeat fixed;
+  background: var(--color-bg-alt);
 }
 
 .booking__container { max-width: 700px; margin: 0 auto; }
@@ -877,11 +875,11 @@ body::after {
 .booking__field input,
 .booking__field textarea {
   width: 100%;
-  background: rgba(22, 22, 22, 0.8);
-  border: 1px solid rgba(14, 165, 233, 0.2);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 4px;
   padding: 0.85rem 1rem;
-  color: var(--color-text-primary, #FFFFFF);
+  color: var(--color-text);
   font-size: 0.95rem;
   font-family: var(--font-body);
   outline: none;
@@ -892,12 +890,12 @@ body::after {
 .booking__field textarea { resize: vertical; min-height: 100px; }
 .booking__field input:focus,
 .booking__field textarea:focus {
-  border-color: var(--color-gold, #0ea5e9);
-  background: rgba(30, 30, 30, 0.9);
+  border-color: var(--color-gold);
+  background: var(--color-surface);
 }
 .booking__field input::placeholder,
 .booking__field textarea::placeholder {
-  color: var(--color-text-muted, #666666);
+  color: var(--color-text-muted);
 }
 
 .booking__label {
@@ -914,9 +912,9 @@ body::after {
 .booking__select,
 .booking__textarea {
   width: 100%;
-  background: rgba(22, 22, 22, 0.8);
-  border: 1px solid rgba(14, 165, 233, 0.2);
-  color: var(--color-text-primary);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
   padding: 0.85rem 1rem;
   font-family: var(--font-body);
   font-size: 0.95rem;
@@ -929,18 +927,17 @@ body::after {
 .booking__select:focus,
 .booking__textarea:focus {
   border-color: var(--color-gold);
-  background: rgba(30, 30, 30, 0.9);
+  background: var(--color-surface);
 }
 
-.booking__select { cursor: pointer; color-scheme: dark; }
-.booking__select option { background: #111111; color: #ffffff; }
+.booking__select { cursor: pointer; color-scheme: light; }
+.booking__select option { background: var(--color-surface); color: var(--color-text); }
 .booking__textarea { resize: vertical; min-height: 72px; }
 
 .booking__picker-wrap {
-  background: rgba(22, 22, 22, 0.6);
-  border: 1px solid rgba(14, 165, 233, 0.2);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   padding: 1.25rem;
-  backdrop-filter: blur(4px);
 }
 
 .booking__actions {
@@ -1111,8 +1108,9 @@ body::after {
 
 .date-picker__time--booked {
   background: transparent !important;
-  border-color: rgba(255, 255, 255, 0.06) !important;
-  color: rgba(255, 255, 255, 0.2) !important;
+  border-color: var(--color-border-subtle) !important;
+  color: var(--color-text-muted) !important;
+  opacity: 0.5;
   cursor: not-allowed !important;
   text-decoration: line-through;
   pointer-events: none;
