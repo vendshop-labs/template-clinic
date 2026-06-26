@@ -24,11 +24,10 @@ interface DigitalProduct {
 type TranslationMap = Record<SupportedLocale, { name: string; description: string }>;
 
 const EMPTY_TRANSLATIONS: TranslationMap = {
-  sk: { name: '', description: '' },
   en: { name: '', description: '' },
-  uk: { name: '', description: '' },
-  cs: { name: '', description: '' },
+  sk: { name: '', description: '' },
   de: { name: '', description: '' },
+  cs: { name: '', description: '' },
 };
 
 const CURRENCIES = ['EUR', 'CZK', 'UAH'];

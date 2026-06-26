@@ -54,12 +54,12 @@ async function main() {
         },
       },
       metadata: {
-        tagline: 'Profesionálna stomatológia v centre Bratislavy',
+        tagline: 'Professional Dental Care in the Heart of Bratislava',
         stats: [
-          { label: '10+ rokov', description: 'skúseností' },
-          { label: '8 000+', description: 'spokojných pacientov' },
-          { label: '3 doktori', description: 'odborníci' },
-          { label: '4.9', description: 'priemerné hodnotenie' },
+          { label: '10+',   description: 'years of experience' },
+          { label: '8,000+', description: 'happy patients' },
+          { label: '3',     description: 'specialist doctors' },
+          { label: '4.9',   description: 'Google rating' },
         ],
       },
     },
@@ -73,8 +73,8 @@ async function main() {
     create: {
       storeId:  store.id,
       title:    'DentCare Clinic',
-      subtitle: 'Profesionálna stomatológia v centre Bratislavy',
-      ctaText:  'Objednať termín',
+      subtitle: 'Professional Dental Care in the Heart of Bratislava',
+      ctaText:  'Book Appointment',
       imageUrl: null,
     },
   });
@@ -84,25 +84,25 @@ async function main() {
   const doctorsData = [
     {
       name:           'Dr. Jana Nováková',
-      role:           'Stomatológ',
-      specialization: 'Stomatológ — 12 rokov praxe',
-      bio:            'Špecializuje sa na preventívnu starostlivosť a estetickú stomatológiu. Absolventka LF UK Bratislava.',
+      role:           'Dentist',
+      specialization: 'Dentist — 12 years of experience',
+      bio:            'Specialises in preventive and aesthetic dentistry. Graduate of the Faculty of Medicine, Comenius University Bratislava.',
       photo:          '/team/team-kate.webp',
       sortOrder:      1,
     },
     {
       name:           'Dr. Marek Horváth',
-      role:           'Ortodontista',
-      specialization: 'Ortodontista — 8 rokov praxe',
-      bio:            'Expert na fixné a snímateľné rovnátka. Člen Slovenskej ortodontickej spoločnosti.',
+      role:           'Orthodontist',
+      specialization: 'Orthodontist — 8 years of experience',
+      bio:            'Expert in fixed and removable braces. Member of the Slovak Orthodontic Society.',
       photo:          '/team/team-martin.webp',
       sortOrder:      2,
     },
     {
       name:           'Dr. Petra Kováčová',
-      role:           'Detský zubár',
-      specialization: 'Detský zubár — 6 rokov praxe',
-      bio:            'Špecialista na pedostomatológiu. Vytvára príjemné prostredie pre detských pacientov.',
+      role:           'Paediatric Dentist',
+      specialization: 'Paediatric Dentist — 6 years of experience',
+      bio:            'Specialist in paedodontics. Creates a friendly, stress-free environment for young patients.',
       photo:          '/team/team-lucia.webp',
       sortOrder:      3,
     },
@@ -122,12 +122,12 @@ async function main() {
 
   // ============ SERVICES (procedúry) ============
   const servicesData = [
-    { slug: 'konzultacia',          nameKey: 'konzultacia',          price: 0,   duration: 15, category: 'preventiva', description: 'Bezplatná úvodná konzultácia so stomatológom.' },
-    { slug: 'zubna-prehliadka',     nameKey: 'zubnaPrehlidka',       price: 30,  duration: 30, category: 'preventiva', description: 'Komplexná zubná prehliadka vrátane RTG snímky.' },
-    { slug: 'cistenie-zubov',       nameKey: 'cistenieZubov',        price: 50,  duration: 45, category: 'hygiena',    description: 'Profesionálne čistenie zubov a odstránenie zubného kameňa.' },
-    { slug: 'bielenie-zubov',       nameKey: 'bielenieZubov',        price: 120, duration: 60, category: 'estetika',   description: 'Profesionálne bielenie zubov o 4–8 odtieňov.' },
-    { slug: 'ortodonticka-kontrola',nameKey: 'ortodontickaKontrola', price: 40,  duration: 30, category: 'ortodontia', description: 'Kontrola fixných rovnátok alebo retainerov.' },
-    { slug: 'extrakcia-zuba',       nameKey: 'ekstrakciaZuba',       price: 80,  duration: 45, category: 'chirurgia',  description: 'Extrakcia zuba vrátane lokálnej anestézie.' },
+    { slug: 'konzultacia',          nameKey: 'konzultacia',          price: 0,   duration: 15, category: 'prevention',   description: 'Free initial consultation with a dentist — no obligation.' },
+    { slug: 'zubna-prehliadka',     nameKey: 'zubnaPrehlidka',       price: 30,  duration: 30, category: 'prevention',   description: 'Comprehensive dental examination including digital X-ray.' },
+    { slug: 'cistenie-zubov',       nameKey: 'cistenieZubov',        price: 50,  duration: 45, category: 'hygiene',      description: 'Professional teeth cleaning and tartar removal.' },
+    { slug: 'bielenie-zubov',       nameKey: 'bielenieZubov',        price: 120, duration: 60, category: 'aesthetics',   description: 'In-office professional whitening — up to 8 shades brighter.' },
+    { slug: 'ortodonticka-kontrola',nameKey: 'ortodontickaKontrola', price: 40,  duration: 30, category: 'orthodontics', description: 'Fixed brace or retainer adjustment and review.' },
+    { slug: 'extrakcia-zuba',       nameKey: 'ekstrakciaZuba',       price: 80,  duration: 45, category: 'surgery',      description: 'Tooth extraction under local anaesthesia.' },
   ];
 
   for (const svc of servicesData) {
@@ -144,23 +144,23 @@ async function main() {
     {
       name:   'Martin K.',
       email:  'martin.k@example.com',
-      text:   'Skvelá klinika! Doktorka Nováková je veľmi profesionálna a trpezlivá. Odporúčam všetkým.',
+      text:   'Great clinic! Dr. Nováková is very professional and patient. I always leave feeling well looked after. Highly recommended.',
       rating: 5,
-      locale: 'sk',
+      locale: 'en',
     },
     {
       name:   'Eva S.',
       email:  'eva.s@example.com',
-      text:   'Bielenie zubov prebehlo rýchlo a bez bolesti. Výsledok je úžasný, som veľmi spokojná!',
+      text:   'Teeth whitening was quick and completely painless. The result is amazing — I got compliments the very same day!',
       rating: 5,
-      locale: 'sk',
+      locale: 'en',
     },
     {
       name:   'Peter H.',
       email:  'peter.h@example.com',
-      text:   'Ortodontická liečba mojej dcéry prebieha skvele. Dr. Horváth vždy všetko vysvetlí.',
+      text:   "My daughter's orthodontic treatment is going perfectly. Dr. Horváth always explains everything clearly and patiently.",
       rating: 5,
-      locale: 'sk',
+      locale: 'en',
     },
   ];
 

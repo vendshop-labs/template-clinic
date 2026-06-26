@@ -3,15 +3,13 @@ import { type Locale } from './i18n/routing';
 /**
  * Region bundles.
  *
- * The template bundles all six locales (see `src/i18n/routing.ts`), but a given
- * deployment only *activates* a subset. The active subset is chosen at runtime
- * via the `REGION_BUNDLE` server env var — no rebuild required, so one image
- * can serve every region.
+ * A given deployment activates one bundle via `REGION_BUNDLE` env var — no
+ * rebuild required, so one image can serve every market.
  *
- * - `UA`  → Ukrainian-first store: uk, ru, en
- * - `EU`  → EU store: de (default), en, plus sk / cs where the country needs them
+ * - `SK`  → Slovak-first: sk, en, de, cs
+ * - `EU`  → English-first: en, sk, de, cs
  */
-export type RegionBundle = 'UA' | 'EU';
+export type RegionBundle = 'SK' | 'EU';
 
 interface BundleConfig {
   /** Locales shown to the user, in display order. First-class subset of `routing.locales`. */
@@ -21,17 +19,17 @@ interface BundleConfig {
 }
 
 export const REGION_BUNDLES = {
-  UA: { locales: ['uk', 'ru', 'en'], defaultLocale: 'uk' },
-  EU: { locales: ['de', 'en', 'sk', 'cs'], defaultLocale: 'de' },
+  SK: { locales: ['sk', 'en', 'de', 'cs'], defaultLocale: 'sk' },
+  EU: { locales: ['en', 'sk', 'de', 'cs'], defaultLocale: 'en' },
 } satisfies Record<RegionBundle, BundleConfig>;
 
 /**
  * The bundle this deployment runs as. Read on the server at request time
  * (middleware, RSC), so changing it + restarting flips active locales without
- * a rebuild. Falls back to `UA`.
+ * a rebuild. Falls back to `EU` (English-first).
  */
 export const activeBundle: RegionBundle =
-  process.env.REGION_BUNDLE === 'EU' ? 'EU' : 'UA';
+  process.env.REGION_BUNDLE === 'SK' ? 'SK' : 'EU';
 
 /** Locales exposed to users for the active bundle (e.g. for a language switcher). */
 export function getActiveLocales(): Locale[] {
