@@ -1,8 +1,8 @@
 .page {
   padding: 32px;
   min-height: 100vh;
-  background: var(--admin-bg, #111111);
-  color: #f0f0f0;
+  background: var(--color-bg);
+  color: var(--color-text);
 }
 
 .header {
@@ -15,28 +15,28 @@
 }
 
 .h1 { font-size: 22px; font-weight: 800; color: var(--color-text); margin: 0; }
-.h2 { font-size: 16px; font-weight: 600; color: #f0f0f0; margin: 0 0 16px; }
+.h2 { font-size: 16px; font-weight: 600; color: var(--color-text); margin: 0 0 16px; }
 
 .actions { display: flex; gap: 8px; }
 
 .resetBtn {
   padding: 8px 16px;
-  border: 1px solid #2a2a2a;
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   background: var(--color-surface);
-  color: #c0c0c0;
+  color: var(--color-text-secondary);
   cursor: pointer;
   font-size: 14px;
   transition: border-color 150ms, color 150ms;
 }
-.resetBtn:hover { border-color: var(--color-gold); color: #f0f0f0; }
+.resetBtn:hover { border-color: var(--color-gold); color: var(--color-text); }
 
 .saveBtn {
   padding: 8px 20px;
   border: none;
   border-radius: 8px;
-  background: #B87333;
-  color: var(--color-text);
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
   font-weight: 600;
   cursor: pointer;
   font-size: 14px;
@@ -47,15 +47,15 @@
 
 .toast {
   background: rgba(22,163,74,0.12);
-  border: 1px solid #2a5a2a;
-  color: #5fca5f;
+  border: 1px solid rgba(22,163,74,0.3);
+  color: #16a34a;
   padding: 10px 16px;
   border-radius: 8px;
   margin-bottom: 16px;
   font-size: 14px;
 }
 
-.loading { padding: 48px; text-align: center; color: #6b7280; }
+.loading { padding: 48px; text-align: center; color: var(--color-text-muted); }
 
 .grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
 
@@ -65,7 +65,7 @@
 
 .section {
   background: var(--color-surface);
-  border: 1px solid #2a2a2a;
+  border: 1px solid var(--color-border);
   border-radius: 12px;
   padding: 20px;
 }
@@ -83,7 +83,7 @@
 .colorInput {
   width: 36px;
   height: 36px;
-  border: 1px solid #2a2a2a;
+  border: 1px solid var(--color-border);
   border-radius: 6px;
   padding: 2px;
   cursor: pointer;
@@ -91,12 +91,12 @@
 }
 
 .colorName { font-size: 14px; font-weight: 500; color: var(--color-text-secondary); }
-.colorHint { font-size: 12px; color: #6b7280; }
+.colorHint { font-size: 12px; color: var(--color-text-muted); }
 
 .hexInput {
   font-size: 13px;
   padding: 4px 8px;
-  border: 1px solid #2a2a2a;
+  border: 1px solid var(--color-border);
   border-radius: 6px;
   width: 90px;
   font-family: monospace;
@@ -116,21 +116,21 @@
 
 .optionBtn {
   padding: 6px 14px;
-  border: 1px solid #2a2a2a;
+  border: 1px solid var(--color-border);
   border-radius: 6px;
   background: var(--color-surface);
-  color: #c0c0c0;
+  color: var(--color-text-muted);
   cursor: pointer;
   font-size: 13px;
   text-transform: capitalize;
   transition: border-color 150ms, color 150ms;
 }
-.optionBtn:hover { border-color: var(--color-gold); color: #f0f0f0; }
+.optionBtn:hover { border-color: var(--color-gold); color: var(--color-text); }
 .optionActive { background: rgba(14,165,233,0.10); border-color: var(--color-gold); color: var(--color-gold); font-weight: 600; }
 
 /* Preview */
 .preview { padding: 16px; background: var(--color-bg-alt); border-radius: 8px; border: 1px solid var(--color-border); }
-.previewCard { border: 1px solid #2a2a2a; border-radius: 8px; overflow: hidden; }
+.previewCard { border: 1px solid var(--color-border); border-radius: 8px; overflow: hidden; }
 .previewHeader { padding: 12px 16px; font-weight: 600; font-size: 14px; }
 .previewBody { padding: 16px; display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
 .previewBody p { margin: 0; font-size: 14px; }
@@ -139,7 +139,7 @@
 /* Presets */
 .presetsHint {
   font-size: 13px;
-  color: #6b7280;
+  color: var(--color-text-muted);
   margin: 0 0 16px;
 }
 
@@ -155,7 +155,7 @@
   align-items: center;
   gap: 8px;
   padding: 16px 12px;
-  border: 1px solid #2a2a2a;
+  border: 1px solid var(--color-border);
   border-radius: 10px;
   background: var(--color-surface);
   cursor: pointer;
@@ -165,7 +165,7 @@
 
 .presetCard:hover {
   border-color: var(--color-gold);
-  box-shadow: 0 2px 8px rgba(184, 115, 51, 0.15);
+  box-shadow: var(--shadow-sm);
 }
 
 .presetColors {
@@ -177,7 +177,7 @@
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--color-border);
 }
 
 .presetName {
@@ -188,5 +188,5 @@
 
 .presetDesc {
   font-size: 12px;
-  color: #6b7280;
+  color: var(--color-text-muted);
 }

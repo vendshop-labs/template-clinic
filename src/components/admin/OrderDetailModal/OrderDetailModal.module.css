@@ -248,7 +248,7 @@
 }
 
 .ttnSave:hover {
-  background: #334155;
+  background: var(--color-text-secondary);
 }
 
 .notify {
